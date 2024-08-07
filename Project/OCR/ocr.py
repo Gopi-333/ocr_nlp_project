@@ -1,26 +1,26 @@
-from pdf2image import convert_from_path
-from PIL import Image
 import pytesseract
-import os
+from PIL import Image
 
-# Path to the PDF file
-pdf_path = r"C:\Users\gopir\Downloads\New doc 23-May-2021 11.28 am.pdf"
+def extract_text_from_image(image_path, lang='eng'):
+    """
+    Extracts text from an image using Tesseract OCR.
 
-# Path to the Poppler executable if not in system PATH (for Windows)
-poppler_path = r"E:\jupiter"
+    Parameters:
+    - image_path (str): The path to the image file.
+    - lang (str): The language to use for OCR (default is 'eng' for English).
 
-# Convert PDF to a list of images
-images = convert_from_path(pdf_path, poppler_path=poppler_path if os.name == 'nt' else None)
-print(type(images),images,sep="\n")
-# Loop through each image and extract text
-for i, image in enumerate(images):
-    # Optionally, save the image for debugging purposes
-    image_path = f'page_{i+1}.png'
-    image.save(image_path, 'PNG')
-    
-    # Extract text from the image
-    text = pytesseract.image_to_string(image)
-    
-    print(f"Text from page {i+1}:")
-    print(text)
-    print("-" * 50)
+    Returns:
+    - str: The text extracted from the image.
+    """
+    try:
+        # Open the image file
+        with Image.open(image_path) as image:
+            # Use pytesseract to extract text
+            text = pytesseract.image_to_string(image, lang=lang)
+        return text
+    except Exception as e:
+        return f"An error occurred: {e}"
+
+# Example usage:
+# text = extract_text_from_image('path_to_image.jpg')
+# print(text)
