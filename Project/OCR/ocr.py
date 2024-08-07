@@ -1,5 +1,7 @@
 import pytesseract
 from PIL import Image
+import fitz
+from io import BytesIO
 
 def image_to_text_tess(image_path, lang='eng'):
     """
@@ -33,12 +35,19 @@ def pdf_to_text_tess(image, lang='eng'):
     - str: The text extracted from the image.
     """
     try:
-            # Use pytesseract to extract text
-        text = pytesseract.image_to_string(image, lang=lang)
-        return text
+        # Use pytesseract to extract text
+        pdf_document = fitz.open(image)
+
+        for page_number in range(len(pdf_document)):
+            page = pdf_document.load_page(page_number)
+            pix = page.get_pixmap()
+            # Load the image from bytes into a PIL Image object
+            img = Image.open(BytesIO(pix.tobytes()))
+            text = pytesseract.image_to_string(img)
+        return text # need to change the logic of return
     except Exception as e:
         return f"An error occurred: {e}"
 
 # Example usage:
-text = image_to_text_tess(r'E:\Python projects\OCR_NLP\ocr_nlp_project\Project\Data\Images\photo_4_2024-01-17_12-42-32.jpg')
+text = image_to_text_tess(r"C:\Users\harih\Downloads\New doc 23-May-2021 11.28 am (1).pdf") # Temporary input line
 print(text)
