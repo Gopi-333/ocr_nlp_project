@@ -22,5 +22,5 @@ def extract_text_from_image(image_path, lang='eng'):
         return f"An error occurred: {e}"
 
 # Example usage:
-# text = extract_text_from_image('path_to_image.jpg')
-# print(text)
+text = extract_text_from_image(r'E:\Python projects\OCR_NLP\ocr_nlp_project\Project\Data\Images\photo_4_2024-01-17_12-42-32.jpg')
+print(text)
