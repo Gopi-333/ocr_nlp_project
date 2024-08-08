@@ -65,4 +65,4 @@ def image_to_data(img, lang='eng'):
 
   
     
-
+print(image_to_text_tess(r"C:\Users\harih\OneDrive\Desktop\ocr_nlp\ocr_nlp_project\Project\Data\Images\photo_34_2024-01-17_12-42-32.jpg"))
