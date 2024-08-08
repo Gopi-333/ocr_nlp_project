@@ -44,10 +44,23 @@ def pdf_to_text_tess(image, lang='eng'):
             # Load the image from bytes into a PIL Image object
             img = Image.open(BytesIO(pix.tobytes()))
             text = pytesseract.image_to_string(img)
-        return text # need to change the logic of return
+        return text #-----------------------------------------> need to change the logic of return
     except Exception as e:
         return f"An error occurred: {e}"
 
-# Example usage:
-text = image_to_text_tess(r"C:\Users\harih\Downloads\New doc 23-May-2021 11.28 am (1).pdf") # Temporary input line
-print(text)
+def image_to_data(img, lang='eng'):
+    """
+    Extracts text and data from an image using Tesseract OCR.
+    Parameters:
+    - img (PIL.PngImagePlugin.PngImageFile): The path to the image file.
+    - lang (str): The language to use for OCR (default is 'eng' for English).
+    Returns:
+    - dict: A dictionary containing extracted text and data.
+    """
+
+    # Use pytesseract to extract text and data
+    text = pytesseract.image_to_data(img, lang=lang)
+
+  
+    
+
