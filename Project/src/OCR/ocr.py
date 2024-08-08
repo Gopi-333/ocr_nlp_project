@@ -2,6 +2,7 @@ import pytesseract
 from PIL import Image
 import fitz
 from io import BytesIO
+from pytesseract import Output
 
 def image_to_text_tess(image_path, lang='eng'):
     """
@@ -16,7 +17,7 @@ def image_to_text_tess(image_path, lang='eng'):
     """
     try:
         # Open the image file
-        with Image.open(image_path) as image:
+        with Image.open(image_path) as image: # Need to check this line
             # Use pytesseract to extract text
             text = pytesseract.image_to_string(image, lang=lang)
         return text
@@ -59,7 +60,8 @@ def image_to_data(img, lang='eng'):
     """
 
     # Use pytesseract to extract text and data
-    text = pytesseract.image_to_data(img, lang=lang)
+    text = pytesseract.image_to_data(img, lang=lang, output_type=Output.DICT)
+    return text
 
   
     
